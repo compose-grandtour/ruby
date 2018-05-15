@@ -1,6 +1,4 @@
 #redis-example.rb
-require 'rubygems'
-require 'bundler/setup'
 require 'uri'
 require 'sinatra'
 require 'redis'

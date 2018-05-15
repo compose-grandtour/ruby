@@ -1,6 +1,4 @@
 #example.rb
-require 'rubygems'
-require 'bundler/setup'
 require 'sinatra'
 
 all_words = []
