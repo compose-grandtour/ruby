@@ -6,9 +6,18 @@ require 'mongo'
 compose_mongodb_url = ENV['COMPOSE_MONGODB_URL']
 compose_mongodb_cert = ENV['PATH_TO_MONGODB_CERT']
 
+options = {}
+
+# If the path to the certificate is set, we assume SSL with a selfsigned cert
+# Therefore we read the cert and set the options for a selfsigned SSL connection
+if compose_mongodb_cert
+    options = {ssl: true, ssl_ca_cert: compose_mongodb_cert, database: "grand_tour"}
+else 
+    options = {ssl: true, database: "grand_tour"}
+end
 
 # set up a new client using your Compose MongoDB URL, sets database, will create if it doesn't exist
-client = Mongo::Client.new(compose_mongodb_url, ssl: true, ssl_ca_cert: compose_mongodb_cert, database: "grand_tour")
+client = Mongo::Client.new(compose_mongodb_url, options)
 
 # set collection, will create if it doesn't exist
 collection = client['words']
